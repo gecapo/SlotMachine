@@ -4,31 +4,109 @@ namespace SlotMachine.Lib
 {
     public class GameEngine
     {
-        private decimal _amount;
+        private decimal _balance;
+        private decimal _bet;
         private readonly SlotMachine _slotMachine;
         private readonly IInteractionService _interactionService;
 
-        public GameEngine()
+        public GameEngine(IInteractionService interactionService)
         {
             _slotMachine = new SlotMachine();
-            _interactionService = new InteractionService();
+            _interactionService = interactionService;
         }
 
-        public void Start()
+        /// <summary>
+        /// Gets The current balance of the player
+        /// </summary>
+        public decimal Balance
         {
-            _amount = _interactionService.ReadDecimal("Insert amout?");
-            while (_amount > 0)
+            get => _balance;
+            private set
             {
-                var bet = _interactionService.ReadDecimal("Enter bet.");
-                _amount -= bet;
-                var spinResult = _slotMachine.Spin();
-                _interactionService.VisualiseReels(spinResult);
-                var winnings = bet * _slotMachine.GetWinningCoeficent();
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException(
+                          $"{nameof(Balance)} must be positive number.");
 
-                _interactionService.VisualiseString($"You win {winnings}");
-                _amount += winnings;
-                _interactionService.VisualiseString($"New balance is {_amount}");
+                _balance = value;
             }
+        }
+
+        /// <summary>
+        /// Gets the current bet of the player
+        /// </summary>
+        public decimal Bet
+        {
+            get => _bet;
+            private set
+            {
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException(
+                          $"{nameof(Bet)} must be positive number.");
+
+                if (_balance - value < 0)
+                    throw new ArgumentOutOfRangeException(
+                          $"{nameof(Bet)} cannot be more than your current Balance.");
+
+                _bet = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the current Slot Machine spin result.
+        /// </summary>
+        public Symbol[][] SpinResult { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void Initialize()
+        {
+            try
+            {
+                Balance = _interactionService.ReadDecimal("Insert money?");
+                while (Balance > 0)
+                {
+                    GameSpin();
+                }
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                _interactionService.VisualiseString(ex.Message);
+            }
+
+            _interactionService.VisualiseString($"Game Over");
+        }
+
+        /// <summary>
+        /// Trigger one game cycle
+        /// </summary>
+        private void GameSpin()
+        {
+            try
+            {
+                Bet = _interactionService.ReadDecimal("Enter bet.");
+                Balance -= Bet;
+
+                SpinResult = _slotMachine.Spin();
+                _interactionService.VisualiseReels(SpinResult);
+
+                var winnings = Bet * _slotMachine.GetWinningCoeficent();
+
+                Balance += winnings;
+                _interactionService.VisualiseString($"You win ${winnings}\nNew balance is ${Balance}\n");
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                _interactionService.VisualiseString(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Run()
+        {
+            Initialize();
         }
     }
 }
