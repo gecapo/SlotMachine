@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using SlotMachine.Lib;
 
 namespace SlotMachine.Game
@@ -7,8 +8,14 @@ namespace SlotMachine.Game
     {
         static void Main(string[] args)
         {
-            var game = new GameEngine();
-            game.Start();
+            ///Idea is that by simply changing the InteractionService we can change the UI of the game
+
+            var serviceProvider = new ServiceCollection()
+                .AddTransient<GameEngine>()
+                .AddSingleton<IInteractionService, InteractionService>()
+                .BuildServiceProvider();
+
+            serviceProvider.GetService<GameEngine>().Run();
         }
     }
 }

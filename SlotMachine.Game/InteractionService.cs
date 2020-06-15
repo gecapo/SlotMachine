@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using SlotMachine.Lib;
 
-namespace SlotMachine.Lib
+namespace SlotMachine
 {
-    internal class InteractionService : IInteractionService
+    public class InteractionService : IInteractionService
     {
         public decimal ReadDecimal(string message)
         {

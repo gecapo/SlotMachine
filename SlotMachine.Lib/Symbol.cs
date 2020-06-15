@@ -2,7 +2,7 @@
 {
     using System.ComponentModel;
 
-    internal enum Symbol
+    public enum Symbol
     {
         [Description(Constants.AppleSymbol)]
         Apple = Constants.AppleProbabilityPercent,

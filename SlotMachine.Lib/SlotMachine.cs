@@ -4,7 +4,7 @@
 
     internal class SlotMachine
     {
-        private readonly SlotCalculator _slotCalculator = new SlotCalculator();
+        private readonly ICalculator _slotCalculator = new SlotCalculator();
         private Symbol[][] _currentSpinResult;
 
         internal Symbol[][] Spin()

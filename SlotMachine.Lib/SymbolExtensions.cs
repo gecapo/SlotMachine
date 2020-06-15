@@ -2,9 +2,9 @@
 {
     using System.ComponentModel;
 
-    internal static class SymbolExtensions
+    public static class SymbolExtensions
     {
-        internal static string ToSymbolString(this Symbol symbol)
+        public static string ToSymbolString(this Symbol symbol)
         {
             DescriptionAttribute[] attributes = (DescriptionAttribute[])symbol
                .GetType()
@@ -13,7 +13,7 @@
             return attributes.Length > 0 ? attributes[0].Description : string.Empty;
         }
 
-        internal static decimal ToCoeficent(this Symbol symbol) => symbol switch
+        public static decimal ToCoeficent(this Symbol symbol) => symbol switch
         {
             Symbol.Apple => Constants.AppleCoefficient,
             Symbol.Banana => Constants.BananaCoefficient,

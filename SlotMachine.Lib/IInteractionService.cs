@@ -1,6 +1,6 @@
 ﻿namespace SlotMachine.Lib
 {
-    internal interface IInteractionService
+    public interface IInteractionService
     {
         void VisualiseReels(Symbol[][] reels);
 
