@@ -66,10 +66,18 @@ namespace SlotMachine
             Console.WriteLine(message);
         }
 
-
-        public int HandleNewGame()
+        public bool HandleGameOptions(string message)
         {
-            throw new NotImplementedException();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine(message);
+            var key = Console.ReadKey();
+
+            if (key.Key.Equals(ConsoleKey.Spacebar))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

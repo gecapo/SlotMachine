@@ -13,6 +13,6 @@
         public abstract Symbol[][] SpinResult { get; protected set; }
 
         public abstract void Run();
-        protected abstract void HandleSpin();
+        //protected abstract void HandleSpin();
     }
 }

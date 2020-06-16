@@ -37,7 +37,7 @@ namespace SlotMachine.Lib
             get => _bet;
             protected set
             {
-                if (value < 0)
+                if (value <= 0)
                     throw new ArgumentOutOfRangeException(
                           $"{nameof(Bet)} must be positive number.");
 
@@ -57,33 +57,69 @@ namespace SlotMachine.Lib
         /// <summary>
         /// 
         /// </summary>
-        private void Initialize()
+        protected virtual void Initialize()
         {
-            _interactionService.HandleNewGame();
+            var newGame = _interactionService.HandleGameOptions("Press [spacebar] for new game or any other key to exit.");
+
+            if (newGame)
+            {
+                NewGame();
+            }
+            else
+            {
+                Exit();
+            }
+        }
+
+        /// <summary>
+        /// Start a new game
+        /// </summary>
+        protected virtual void NewGame()
+        {
             try
             {
                 Balance = _interactionService.HandleInput("Insert money?");
                 while (Balance > 0)
                 {
-                    HandleSpin();
+                    RunGameCycle();
                 }
             }
             catch (ArgumentOutOfRangeException ex)
             {
                 _interactionService.HandleError(ex.Message);
             }
+            finally
+            {
+                Initialize();
+            }
+        }
 
-            _interactionService.HandleStringOutput($"Game Over");
+
+        /// <summary>
+        /// Stop the game
+        /// </summary>
+        protected virtual void Exit()
+        {
+            _interactionService.HandleStringOutput($"Thank you for playing");
         }
 
         /// <summary>
         /// Trigger one game cycle
         /// </summary>
-        protected override void HandleSpin()
+        protected virtual void RunGameCycle()
         {
             try
             {
-                Bet = _interactionService.HandleInput("Enter bet.");
+                var newBet = true;
+                if (Bet != 0)
+                {
+                    newBet = _interactionService.HandleGameOptions("Press [spacebar] to use the same bet or any other key to enter new bet.");
+                }
+
+                if (newBet)
+                {
+                    Bet = _interactionService.HandleInput("Enter amout of the bet.");
+                }
                 Balance -= Bet;
 
                 SpinResult = _slotMachine.Spin();

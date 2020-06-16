@@ -5,8 +5,7 @@
         void HandleReelsOuput(Symbol[][] reels);
         void HandleStringOutput(string options);
         void HandleError(string message);
-        int HandleNewGame();
-        int HandleGameCycle();
+        bool HandleGameOptions(string message);
         decimal HandleInput(string message);
     }
 }
