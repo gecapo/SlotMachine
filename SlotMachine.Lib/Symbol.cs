@@ -5,12 +5,12 @@
     public enum Symbol
     {
         [Description(Constants.AppleSymbol)]
-        Apple = Constants.AppleProbabilityPercent,
+        Apple = Constants.AppleProbabilityBorder,
         [Description(Constants.BananaSymbol)]
-        Banana = Constants.BananaProbabilityPercent,
+        Banana = Constants.BananaProbabilityBorder,
         [Description(Constants.PineappleSymbol)]
-        Pineapple = Constants.PineappleProbabilityPercent,
+        Pineapple = Constants.PineappleProbabilityBorder,
         [Description(Constants.WildcardSymbol)]
-        Wildcard = Constants.WildcardProbabilityPercent
+        Wildcard = Constants.WildcardProbabilityBorder
     }
 }

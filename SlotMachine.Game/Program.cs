@@ -17,5 +17,6 @@ namespace SlotMachine.Game
 
             serviceProvider.GetService<GameEngine>().Run();
         }
+
     }
 }

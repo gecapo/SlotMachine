@@ -6,27 +6,37 @@ namespace SlotMachine
 {
     public class InteractionService : IInteractionService
     {
-        public decimal ReadDecimal(string message)
+        /// <summary>
+        /// Handle input from console. Should always be number.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public decimal HandleInput(string message)
         {
             decimal number;
             do
             {
-                VisualiseString(message);
+                HandleStringOutput(message);
             } while (!decimal.TryParse(Console.ReadLine(), out number));
 
             return number;
         }
 
-        public void VisualiseString(string options)
+        /// <summary>
+        /// Handle string visualization to the console.
+        /// </summary>
+        /// <param name="options"></param>
+        public void HandleStringOutput(string options)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(options);
         }
 
         /// <summary>
-        /// Prints the reels to the console.
+        /// Hanlde the reels visualization to the console.
         /// </summary>
         /// <param name="reels">Symbol Jagged Array to be printed in the console.</param>
-        public void VisualiseReels(Symbol[][] reels)
+        public void HandleReelsOuput(Symbol[][] reels)
         {
             Console.WriteLine();
             foreach (var reel in reels)
@@ -36,13 +46,30 @@ namespace SlotMachine
                     //Delayed for dramatic purposes :D
                     Task.Run(async () =>
                     {
-                        await Task.Delay(1000);
+                        await Task.Delay(500);
+                        Console.ForegroundColor = symbol.ToColor();
                         Console.Write(symbol.ToSymbolString());
                     }).Wait();
                 }
                 Console.WriteLine();
             }
             Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Handle errors visualizations to the console.
+        /// </summary>
+        /// <param name="message"></param>
+        public void HandleError(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine(message);
+        }
+
+
+        public int HandleNewGame()
+        {
+            throw new NotImplementedException();
         }
     }
 }

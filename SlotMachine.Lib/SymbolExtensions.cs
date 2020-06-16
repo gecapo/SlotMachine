@@ -1,5 +1,6 @@
 ﻿namespace SlotMachine.Lib
 {
+    using System;
     using System.ComponentModel;
 
     public static class SymbolExtensions
@@ -19,6 +20,16 @@
             Symbol.Banana => Constants.BananaCoefficient,
             Symbol.Pineapple => Constants.PineappleCoefficient,
             Symbol.Wildcard => Constants.WildcardCoefficient,
+            _ => throw new System.Exception("Something went really wrong."),
+        };
+
+
+        public static ConsoleColor ToColor(this Symbol symbol) => symbol switch
+        {
+            Symbol.Apple => Constants.AppleColor,
+            Symbol.Banana => Constants.BananaColor,
+            Symbol.Pineapple => Constants.PineappleColor,
+            Symbol.Wildcard => Constants.WildcardColor,
             _ => throw new System.Exception("Something went really wrong."),
         };
 

@@ -5,9 +5,18 @@
 
     internal class RNGCRandom : IDisposable
     {
-        private const int MAX = 101;
-        private const int MIN = 1;
+        /// <summary>
+        /// Max border of generated number
+        /// </summary>
+        private const int MAX = Constants.MaxGeneratedNumber;
+        /// <summary>
+        /// Min border of generated number
+        /// </summary>
+        private const int MIN = Constants.MinGeneratedNumber;
 
+        /// <summary>
+        /// Secure random generator
+        /// </summary>
         private readonly RNGCryptoServiceProvider rngc = new RNGCryptoServiceProvider();
 
         /// <summary>

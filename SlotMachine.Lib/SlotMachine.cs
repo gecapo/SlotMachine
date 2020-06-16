@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal class SlotMachine
+    public class SlotMachine
     {
         private readonly ICalculator _slotCalculator = new SlotCalculator();
         private Symbol[][] _currentSpinResult;
@@ -24,11 +24,14 @@
             return _currentSpinResult;
         }
 
-        internal decimal GetWinningCoeficent()
-        {
-            return _slotCalculator.GetWinningCoeficent(_currentSpinResult);
-        }
+        internal decimal GetWinningCoeficent() =>
+            _slotCalculator.GetWinningCoeficent(_currentSpinResult);
 
+        /// <summary>
+        /// Gets symbol depending on the number provided
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
         private Symbol GetSymbol(int number)
         {
             return number switch

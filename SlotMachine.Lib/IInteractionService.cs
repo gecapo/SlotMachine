@@ -2,10 +2,11 @@
 {
     public interface IInteractionService
     {
-        void VisualiseReels(Symbol[][] reels);
-
-        void VisualiseString(string options);
-
-        decimal ReadDecimal(string message);
+        void HandleReelsOuput(Symbol[][] reels);
+        void HandleStringOutput(string options);
+        void HandleError(string message);
+        int HandleNewGame();
+        int HandleGameCycle();
+        decimal HandleInput(string message);
     }
 }
