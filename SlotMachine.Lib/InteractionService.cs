@@ -46,7 +46,7 @@ namespace SlotMachine
                     //Delayed for dramatic purposes :D
                     Task.Run(async () =>
                     {
-                        await Task.Delay(500);
+                        await Task.Delay(Constants.Speed);
                         Console.ForegroundColor = symbol.ToColor();
                         Console.Write(symbol.ToSymbolString());
                     }).Wait();

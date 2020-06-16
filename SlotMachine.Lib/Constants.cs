@@ -75,5 +75,7 @@ namespace SlotMachine.Lib
         public const int MinGeneratedNumber = 1;
         public const int MaxGeneratedNumber = 101;
         #endregion
+
+        public const int Speed = 150;
     }
 }
