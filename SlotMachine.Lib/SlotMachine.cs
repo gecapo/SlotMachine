@@ -11,7 +11,7 @@
         /// Produces random spin result.
         /// </summary>
         /// <returns></returns>
-        internal Symbol[][] Spin()
+        public override Symbol[][] Spin()
         {
             this._currentSpinResult = NewSpinResult();
             using (var random = new RNGCRandom())
@@ -32,7 +32,7 @@
         /// Gets the winning coeficent of the current spin result
         /// </summary>
         /// <returns></returns>
-        internal decimal GetWinningCoeficent() =>
+        public override decimal GetWinningCoeficent() =>
             _slotCalculator.GetWinningCoeficent(_currentSpinResult);
 
         /// <summary>

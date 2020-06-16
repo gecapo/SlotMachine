@@ -74,10 +74,10 @@ namespace SlotMachine
 
             if (key.Key.Equals(ConsoleKey.Spacebar))
             {
-                return true;
+                return false;
             }
 
-            return false;
+            return true;
         }
     }
 }

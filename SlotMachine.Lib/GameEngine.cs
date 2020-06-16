@@ -59,9 +59,9 @@ namespace SlotMachine.Lib
         /// </summary>
         protected virtual void Initialize()
         {
-            var newGame = _interactionService.HandleGameOptions("Press [spacebar] for new game or any other key to exit.");
+            var exit = _interactionService.HandleGameOptions("Press [spacebar] for new game or any other key to exit.");
 
-            if (newGame)
+            if (!exit)
             {
                 NewGame();
             }
@@ -120,6 +120,7 @@ namespace SlotMachine.Lib
                 {
                     Bet = _interactionService.HandleInput("Enter amout of the bet.");
                 }
+
                 Balance -= Bet;
 
                 SpinResult = _slotMachine.Spin();
