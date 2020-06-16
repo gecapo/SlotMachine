@@ -4,7 +4,7 @@
     {
         protected decimal _balance;
         protected decimal _bet;
-        protected SlotMachine _slotMachine { get; set; }
+        protected SMachine _slotMachine { get; set; }
 
         protected GEngine() { }
 
@@ -13,6 +13,5 @@
         public abstract Symbol[][] SpinResult { get; protected set; }
 
         public abstract void Run();
-        //protected abstract void HandleSpin();
     }
 }

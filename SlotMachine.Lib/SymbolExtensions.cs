@@ -5,20 +5,23 @@
 
     public static class SymbolExtensions
     {
+        /// <summary>
+        /// Gets the symbol console representation
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
         public static string ToSymbolString(this Symbol symbol) =>
             ((DescriptionAttribute[])symbol
                .GetType()
                .GetField(symbol.ToString())
                .GetCustomAttributes(typeof(DescriptionAttribute), false)
             )[0].Description;
-        //{
-        //    DescriptionAttribute[] attributes = (DescriptionAttribute[])symbol
-        //       .GetType()
-        //       .GetField(symbol.ToString())
-        //       .GetCustomAttributes(typeof(DescriptionAttribute), false);
-        //    return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        //}
 
+        /// <summary>
+        /// Gets the coeficent of a given symbol
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
         public static decimal ToCoeficent(this Symbol symbol) => symbol switch
         {
             Symbol.Apple => Constants.AppleCoefficient,
@@ -28,6 +31,11 @@
             _ => throw new System.Exception("Something went really wrong."),
         };
 
+        /// <summary>
+        /// Gets the console color of the current symbol.
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
         public static ConsoleColor ToColor(this Symbol symbol) => symbol switch
         {
             Symbol.Apple => Constants.AppleColor,

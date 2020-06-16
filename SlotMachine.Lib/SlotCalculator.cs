@@ -26,9 +26,4 @@
             return reels.Where(IsWinningLine).SelectMany(x => x).Sum(x => x.ToCoeficent());
         }
     }
-
-    internal interface ICalculator
-    {
-        decimal GetWinningCoeficent(Symbol[][] reels);
-    }
 }

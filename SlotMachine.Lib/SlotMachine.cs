@@ -2,11 +2,15 @@
 {
     using System;
 
-    public class SlotMachine
+    internal class SlotMachine : SMachine
     {
-        private readonly ICalculator _slotCalculator = new SlotCalculator();
-        private Symbol[][] _currentSpinResult;
+        protected readonly ICalculator _slotCalculator = new SlotCalculator();
+        protected Symbol[][] _currentSpinResult;
 
+        /// <summary>
+        /// Produces random spin result.
+        /// </summary>
+        /// <returns></returns>
         internal Symbol[][] Spin()
         {
             this._currentSpinResult = NewSpinResult();
@@ -24,6 +28,10 @@
             return _currentSpinResult;
         }
 
+        /// <summary>
+        /// Gets the winning coeficent of the current spin result
+        /// </summary>
+        /// <returns></returns>
         internal decimal GetWinningCoeficent() =>
             _slotCalculator.GetWinningCoeficent(_currentSpinResult);
 
@@ -45,6 +53,10 @@
 
         }
 
+        /// <summary>
+        /// Clears curent spin result
+        /// </summary>
+        /// <returns></returns>
         private Symbol[][] NewSpinResult()
         {
             var result = new Symbol[Constants.SlotLines][];
